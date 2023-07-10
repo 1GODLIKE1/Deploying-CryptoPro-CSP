@@ -12,11 +12,11 @@
         dest: /tmp/
 
     - name: Start script in archive
-      shell: /tmp/install.sh
+      ansible.builtin.shell: /tmp/install.sh
       
 
     - name: Create simlinks
-      shell: |
+      ansible.builtin.shell: |
         ln -s /opt/cprocsp/bin/amd64/certmgr
         ln -s /opt/cprocsp/bin/amd64/cpverify
         ln -s /opt/cprocsp/bin/amd64/cryptcp
@@ -28,16 +28,18 @@
         ln -s /opt/cprocsp/sbin/amd64/cpconfig
 
     - name: Check version CryptoPro
-      shell: csptestf -enum -info
+      ansible.builtin.shell: csptestf -enum -info
       register: cp_version
 
     - name: Check license CryptoPro
-      shell: cpconfig -license -view
+      ansible.builtin.shell: cpconfig -license -view
       register: cp_license
 
 
-    - debug:
-      var: |
-        cp_version.stdout_lines
-        echo "-----------------"
-        cp_license.stdout_lines
+    - name: Get CryptoPro version
+      ansible.builtin.debug:
+        var: cp_version.stdout_lines
+    
+    - name: Get CryptoPro license
+      ansible.builtin.debug:
+        var: cp_license.stdout_lines
