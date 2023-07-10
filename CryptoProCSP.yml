@@ -8,7 +8,7 @@
 
     - name: Unarchive CryptoPro CSP v5
       ansible.builtin.unarchive:
-        src: https://cryptopro.ru/sites/default/files/private/csp/50/12800/linux-amd64_deb.tgz
+        src: /tmp/linux-amd64_deb.tgz
         dest: /tmp/
 
     - name: Start script in archive
