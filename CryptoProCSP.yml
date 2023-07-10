@@ -2,7 +2,8 @@
 - name: Install CryptoPro Csp
   hosts: localhost
   become: true
-
+  vars:
+    cp_path: /opt/cprocsp/sbin/amd64/
 
   tasks:
 
@@ -17,22 +18,22 @@
 
     - name: Create simlinks
       ansible.builtin.shell: |
-        ln -s /opt/cprocsp/bin/amd64/certmgr
-        ln -s /opt/cprocsp/bin/amd64/cpverify
-        ln -s /opt/cprocsp/bin/amd64/cryptcp
-        ln -s /opt/cprocsp/bin/amd64/csptest
-        ln -s /opt/cprocsp/bin/amd64/csptestf
-        ln -s /opt/cprocsp/bin/amd64/der2xer
-        ln -s /opt/cprocsp/bin/amd64/inittst
-        ln -s /opt/cprocsp/bin/amd64/wipefile
-        ln -s /opt/cprocsp/sbin/amd64/cpconfig
+        ln -s {{ cp_path }}certmgr certmgr
+        ln -s {{ cp_path }}cpverify cpverify
+        ln -s {{ cp_path }}cryptcp cryptcp
+        ln -s {{ cp_path }}csptest csptest 
+        ln -s {{ cp_path }}csptestf csptestf
+        ln -s {{ cp_path }}der2xer der2xer
+        ln -s {{ cp_path }}inittst inittst
+        ln -s {{ cp_path }}wipefile wipefile
+        ln -s {{ cp_path }}cpconfig cpconfig
 
     - name: Check version CryptoPro
-      ansible.builtin.shell: csptestf -enum -info
+      ansible.builtin.shell: "{{ cp_path }}csptestf -enum -info"
       register: cp_version
 
     - name: Check license CryptoPro
-      ansible.builtin.shell: cpconfig -license -view
+      ansible.builtin.shell: "{{ cp_path }}cpconfig -license -view"
       register: cp_license
 
 
