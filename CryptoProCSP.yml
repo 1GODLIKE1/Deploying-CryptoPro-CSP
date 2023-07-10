@@ -12,7 +12,7 @@
         dest: /tmp/
 
     - name: Start script in archive
-      ansible.builtin.shell: /tmp/install.sh
+      ansible.builtin.shell: /tmp/linux-amd64_deb/install.sh
       
 
     - name: Create simlinks
