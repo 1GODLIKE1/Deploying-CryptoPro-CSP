@@ -27,17 +27,17 @@
         ln -s /opt/cprocsp/bin/amd64/wipefile
         ln -s /opt/cprocsp/sbin/amd64/cpconfig
 
-  - name: Check version CryptoPro
-    shell: csptestf -enum -info
-    register: cp_version
+    - name: Check version CryptoPro
+      shell: csptestf -enum -info
+      register: cp_version
 
-  - name: Check license CryptoPro
-    shell: cpconfig -license -view
-    register: cp_license
+    - name: Check license CryptoPro
+      shell: cpconfig -license -view
+      register: cp_license
 
 
-  - debug:
-    var: |
-      cp_version.stdout_lines
-      echo "-----------------"
-      cp_license.stdout_lines
+    - debug:
+      var: |
+        cp_version.stdout_lines
+        echo "-----------------"
+        cp_license.stdout_lines
